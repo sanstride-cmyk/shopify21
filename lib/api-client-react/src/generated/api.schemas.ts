@@ -8,3 +8,64 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface GenerateAdCreativeRequest {
+  /** URL of the product image */
+  imageUrl: string;
+  /** Optional product category */
+  productCategory?: string;
+  /** Optional product name */
+  productName?: string;
+}
+
+export interface PrimaryAngle {
+  angle: string;
+  reason: string;
+}
+
+export interface AdCopyVariation {
+  hook: string;
+  problem: string;
+  solution: string;
+  cta: string;
+  fullCopy: string;
+}
+
+export interface VideoAdScript {
+  /** 0-3 sec: Hook */
+  hook: string;
+  /** 3-8 sec: Show problem */
+  problem: string;
+  /** 8-15 sec: Product in action */
+  productInAction: string;
+  /** 15-20 sec: Result + CTA */
+  resultAndCta: string;
+}
+
+export interface ImageCreativeIdea {
+  conceptName: string;
+  visualDescription: string;
+  textOverlay: string;
+  whyItConverts: string;
+}
+
+export interface OfferAndPricingAngle {
+  suggestedSellingPrice: string;
+  discountPrice: string;
+  offerType: string;
+  psychologicalReason: string;
+}
+
+export interface AdCreativePack {
+  primaryAngle: PrimaryAngle;
+  scrollStoppingHooks: string[];
+  adCopyVariations: AdCopyVariation[];
+  videoAdScript: VideoAdScript;
+  imageCreativeIdeas: ImageCreativeIdea[];
+  offerAndPricingAngle: OfferAndPricingAngle;
+  ctaOptions: string[];
+}
+
+export interface ErrorResponse {
+  error: string;
+}

@@ -1,6 +1,5 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -10,6 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: ad-creative
+    description: Ad creative generation
 paths:
   /healthz:
     get:
@@ -24,6 +25,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /ad-creative/generate:
+    post:
+      operationId: generateAdCreative
+      tags: [ad-creative]
+      summary: Generate ad creative pack
+      description: Analyzes a product image URL and generates a complete ad creative pack for Indian dropshipping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GenerateAdCreativeRequest"
+      responses:
+        "200":
+          description: Ad creative pack generated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdCreativePack"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +65,138 @@ components:
           type: string
       required:
         - status
-
+    GenerateAdCreativeRequest:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+          description: URL of the product image
+        productCategory:
+          type: string
+          description: Optional product category
+        productName:
+          type: string
+          description: Optional product name
+      required:
+        - imageUrl
+    AdCreativePack:
+      type: object
+      properties:
+        primaryAngle:
+          $ref: "#/components/schemas/PrimaryAngle"
+        scrollStoppingHooks:
+          type: array
+          items:
+            type: string
+        adCopyVariations:
+          type: array
+          items:
+            $ref: "#/components/schemas/AdCopyVariation"
+        videoAdScript:
+          $ref: "#/components/schemas/VideoAdScript"
+        imageCreativeIdeas:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImageCreativeIdea"
+        offerAndPricingAngle:
+          $ref: "#/components/schemas/OfferAndPricingAngle"
+        ctaOptions:
+          type: array
+          items:
+            type: string
+      required:
+        - primaryAngle
+        - scrollStoppingHooks
+        - adCopyVariations
+        - videoAdScript
+        - imageCreativeIdeas
+        - offerAndPricingAngle
+        - ctaOptions
+    PrimaryAngle:
+      type: object
+      properties:
+        angle:
+          type: string
+        reason:
+          type: string
+      required:
+        - angle
+        - reason
+    AdCopyVariation:
+      type: object
+      properties:
+        hook:
+          type: string
+        problem:
+          type: string
+        solution:
+          type: string
+        cta:
+          type: string
+        fullCopy:
+          type: string
+      required:
+        - hook
+        - problem
+        - solution
+        - cta
+        - fullCopy
+    VideoAdScript:
+      type: object
+      properties:
+        hook:
+          type: string
+          description: "0-3 sec: Hook"
+        problem:
+          type: string
+          description: "3-8 sec: Show problem"
+        productInAction:
+          type: string
+          description: "8-15 sec: Product in action"
+        resultAndCta:
+          type: string
+          description: "15-20 sec: Result + CTA"
+      required:
+        - hook
+        - problem
+        - productInAction
+        - resultAndCta
+    ImageCreativeIdea:
+      type: object
+      properties:
+        conceptName:
+          type: string
+        visualDescription:
+          type: string
+        textOverlay:
+          type: string
+        whyItConverts:
+          type: string
+      required:
+        - conceptName
+        - visualDescription
+        - textOverlay
+        - whyItConverts
+    OfferAndPricingAngle:
+      type: object
+      properties:
+        suggestedSellingPrice:
+          type: string
+        discountPrice:
+          type: string
+        offerType:
+          type: string
+        psychologicalReason:
+          type: string
+      required:
+        - suggestedSellingPrice
+        - discountPrice
+        - offerType
+        - psychologicalReason
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

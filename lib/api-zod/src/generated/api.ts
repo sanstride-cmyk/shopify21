@@ -14,3 +14,54 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Analyzes a product image URL and generates a complete ad creative pack for Indian dropshipping
+ * @summary Generate ad creative pack
+ */
+export const GenerateAdCreativeBody = zod.object({
+  imageUrl: zod.string().describe("URL of the product image"),
+  productCategory: zod
+    .string()
+    .optional()
+    .describe("Optional product category"),
+  productName: zod.string().optional().describe("Optional product name"),
+});
+
+export const GenerateAdCreativeResponse = zod.object({
+  primaryAngle: zod.object({
+    angle: zod.string(),
+    reason: zod.string(),
+  }),
+  scrollStoppingHooks: zod.array(zod.string()),
+  adCopyVariations: zod.array(
+    zod.object({
+      hook: zod.string(),
+      problem: zod.string(),
+      solution: zod.string(),
+      cta: zod.string(),
+      fullCopy: zod.string(),
+    }),
+  ),
+  videoAdScript: zod.object({
+    hook: zod.string().describe("0-3 sec: Hook"),
+    problem: zod.string().describe("3-8 sec: Show problem"),
+    productInAction: zod.string().describe("8-15 sec: Product in action"),
+    resultAndCta: zod.string().describe("15-20 sec: Result + CTA"),
+  }),
+  imageCreativeIdeas: zod.array(
+    zod.object({
+      conceptName: zod.string(),
+      visualDescription: zod.string(),
+      textOverlay: zod.string(),
+      whyItConverts: zod.string(),
+    }),
+  ),
+  offerAndPricingAngle: zod.object({
+    suggestedSellingPrice: zod.string(),
+    discountPrice: zod.string(),
+    offerType: zod.string(),
+    psychologicalReason: zod.string(),
+  }),
+  ctaOptions: zod.array(zod.string()),
+});

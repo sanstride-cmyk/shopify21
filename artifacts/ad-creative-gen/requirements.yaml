@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "Animations, layout transitions, and engaging loading states"
+  "react-hook-form": "Robust form state management"
+  "@hookform/resolvers": "Zod integration for form validation"
+  "zod": "Schema validation for inputs"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility function to efficiently merge Tailwind CSS classes"
+
+images:
+  - path: "artifacts/ad-creative-gen/public/images/hero-bg.png"
+    description: "Abstract modern geometric gradient mesh background in deep navy blue, vibrant saffron orange, and emerald green, premium dark mode tech aesthetic with subtle light leaks, high resolution"
+    aspect_ratio: "16:9"
+  - path: "artifacts/ad-creative-gen/public/images/logo-mark.png"
+    description: "Minimalist modern 3D icon of a lightning bolt hitting a target or money bag, vibrant saffron orange and gold gradients on transparent background, sleek tech startup style"
+    aspect_ratio: "1:1"
+
+notes:
+  - Using standard fetch for the generator endpoint to bypass any potential react-query code generation issues and ensure robust long-polling/waiting for the 10-15s generation time.
+  - The API returns a complex nested JSON structure matching AdCreativePack schema.

@@ -6,4 +6,12 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./adCopyVariation";
+export * from "./adCreativePack";
+export * from "./errorResponse";
+export * from "./generateAdCreativeRequest";
 export * from "./healthStatus";
+export * from "./imageCreativeIdea";
+export * from "./offerAndPricingAngle";
+export * from "./primaryAngle";
+export * from "./videoAdScript";

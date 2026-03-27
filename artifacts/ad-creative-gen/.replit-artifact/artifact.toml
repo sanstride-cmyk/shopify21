@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Indian Dropship Ad Creative Generator"
+version = "1.0.0"
+id = "artifacts/ad-creative-gen"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26215
+
+[services.development]
+run = "pnpm --filter @workspace/ad-creative-gen run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ad-creative-gen", "run", "build" ]
+publicDir = "artifacts/ad-creative-gen/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26215"
+BASE_PATH = "/"
